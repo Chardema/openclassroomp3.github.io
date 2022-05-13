@@ -29,7 +29,7 @@ const closeModal = () => {
 // on déclare le formulaire
 let form = document.querySelector("#contactform");
 
-//regexp prenom
+// ***********************REGEXP prenom **********************************
 form.first.addEventListener("change", function () {
   validFirst(this);
 });
@@ -50,17 +50,48 @@ const validFirst = function (inputFirst) {
 
   //on test l'expression régulière
   if (valid) {
-    small.innerHtml = "OK 👨🏼‍💻";
+    small.innerHTML = "OK 👨🏼‍💻";
     small.classList.remove("text-danger");
     small.classList.add("text-success");
   } else {
-    small.innerHtml = "c pas bon cthistoire 🥸";
+    small.innerHTML = "c pas bon cthistoire 🥸";
     small.classList.remove("text-success");
     small.classList.add("text-danger");
   }
 };
 
-//regexp mail
+// ***********************REGEXP NOM **********************************
+form.last.addEventListener("change", function () {
+  validLast(this);
+});
+
+const validLast = function (inputLast) {
+  let msg;
+  let valid = false;
+  // au moins 2 caractère
+  if (inputLast.value.length < 2) {
+    msg = "Le Nom est trop court";
+  } else {
+    msg = "le Nom est correct !!!";
+    valid = true;
+  }
+  //Affichage
+  //Récupération de la balise Small
+  let small = inputLast.nextElementSibling;
+
+  //on test l'expression régulière
+  if (valid) {
+    small.innerHTML = "OK 👨🏼‍💻";
+    small.classList.remove("text-danger");
+    small.classList.add("text-success");
+  } else {
+    small.innerHTML = "c pas bon cthistoire 🥸";
+    small.classList.remove("text-success");
+    small.classList.add("text-danger");
+  }
+};
+
+// ***********************REGEXP MAIL**********************************
 form.email.addEventListener("change", function () {
   validEmail(this);
 });
@@ -75,11 +106,32 @@ const validEmail = function (inputEmail) {
   let small = inputEmail.nextElementSibling;
 
   if (testEmail) {
-    small.innerHtml = "Adresse valide";
+    small.innerHTML = "Adresse valide";
     small.classList.remove("text-danger");
     small.classList.add("text-success");
   } else {
-    small.innerHtml = "Adresse invalide";
+    small.innerHTML = "Adresse invalide";
+    small.classList.remove("text-success");
+    small.classList.add("text-danger");
+  }
+};
+// ***********************REGEXP CONCOURS**********************************
+form.quantity.addEventListener("change", function () {
+  validQuantity(this);
+});
+
+const validQuantity = function (inputQuantity) {
+  let quantityRegExp = new RegExp("^[0-9]*$");
+  //on test la RegExp
+  let testQuantity = quantityRegExp.test(inputQuantity.value);
+  let small = inputQuantity.nextElementSibling;
+
+  if (testQuantity) {
+    small.innerHTML = "en vrai... c'est pas mal";
+    small.classList.remove("text-danger");
+    small.classList.add("text-success");
+  } else {
+    small.innerHTML = "PAS OK";
     small.classList.remove("text-success");
     small.classList.add("text-danger");
   }
